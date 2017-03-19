@@ -33,7 +33,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
 import "../components"
-import moneroComponents.Clipboard 1.0
 import moneroComponents.WalletManager 1.0
 
 Rectangle {
@@ -44,8 +43,6 @@ Rectangle {
     property int lineEditFontSize: 12
 
     color: "#F0EEEE"
-
-    Clipboard { id: clipboard }
 
     function checkAddress(address, testnet) {
       return walletManager.addressValid(address, testnet)
@@ -150,13 +147,8 @@ Rectangle {
                     Layout.fillWidth: true
                     onTextChanged: signSignatureLine.text = ""
 
-                    IconButton {
-                        imageSource: "../images/copyToClipboard.png"
-                        onClicked: {
-                            if (signMessageLine.text.length > 0) {
-                                clipboard.setText(signMessageLine.text)
-                            }
-                        }
+                    CopyToClipboard {
+                        textToCopy: signMessageLine.text
                     }
                 }
 
@@ -225,13 +217,8 @@ Rectangle {
                     Layout.fillWidth: true
                     onTextChanged: signSignatureLine.text = ""
 
-                    IconButton {
-                        imageSource: "../images/copyToClipboard.png"
-                        onClicked: {
-                            if (signFileLine.text.length > 0) {
-                                clipboard.setText(signFileLine.text)
-                            }
-                        }
+                    CopyToClipboard {
+                        textToCopy: signFileLine.text
                     }
                 }
 
@@ -274,13 +261,8 @@ Rectangle {
                     readOnly: true
                     Layout.fillWidth: true
 
-                    IconButton {
-                        imageSource: "../images/copyToClipboard.png"
-                        onClicked: {
-                            if (signSignatureLine.text.length > 0) {
-                                clipboard.setText(signSignatureLine.text)
-                            }
-                        }
+                    CopyToClipboard {
+                        textToCopy: signSignatureLine.text
                     }
                 }
             }
@@ -335,13 +317,8 @@ Rectangle {
                     readOnly: false
                     Layout.fillWidth: true
 
-                    IconButton {
-                        imageSource: "../images/copyToClipboard.png"
-                        onClicked: {
-                            if (verifyMessageLine.text.length > 0) {
-                                clipboard.setText(verifyMessageLine.text)
-                            }
-                        }
+                    CopyToClipboard {
+                        textToCopy: verifyMessageLine.text
                     }
                 }
 
@@ -409,13 +386,8 @@ Rectangle {
                     readOnly: false
                     Layout.fillWidth: true
 
-                    IconButton {
-                        imageSource: "../images/copyToClipboard.png"
-                        onClicked: {
-                            if (verifyFileLine.text.length > 0) {
-                                clipboard.setText(verifyFileLine.text)
-                            }
-                        }
+                    CopyToClipboard {
+                        textToCopy: verifyFileLine.text
                     }
                 }
 
@@ -479,13 +451,8 @@ Rectangle {
                     placeholderText: qsTr("Signature") + translationManager.emptyString;
                     Layout.fillWidth: true
 
-                    IconButton {
-                        imageSource: "../images/copyToClipboard.png"
-                        onClicked: {
-                            if (verifySignatureLine.text.length > 0) {
-                                clipboard.setText(verifySignatureLine.text)
-                            }
-                        }
+                    CopyToClipboard {
+                        textToCopy: verifySignatureLine.text
                     }
                 }
             }

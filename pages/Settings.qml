@@ -35,15 +35,12 @@ import "../version.js" as Version
 
 
 import "../components"
-import moneroComponents.Clipboard 1.0
 
 Rectangle {
     property var daemonAddress
     property bool viewOnly: false
 
     color: "#F0EEEE"
-
-    Clipboard { id: clipboard }
 
     function initSettings() {
         //runs on every page load

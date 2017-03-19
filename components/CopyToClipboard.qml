@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Monero Project
+// Copyright (c) 2014-2017, The Monero Project
 //
 // All rights reserved.
 //
@@ -26,45 +26,26 @@
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 import QtQuick 2.0
 
-Item {
-    property alias imageSource : buttonImage.source
+import "../components" as MoneroComponents
+import moneroComponents.Clipboard 1.0
 
-    signal clicked(var mouse)
+/*
+ * An icon button that copies text to the device clipboard when clicked.
+ */
 
-    id: button
-    width: parent.height
-    height: parent.height
-    anchors.right: parent.right
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
+MoneroComponents.IconButton {
+    property string textToCopy
 
-    Image {
-        id: buttonImage
-        source: ""
-        x : (parent.width - width) / 2
-        y : (parent.height - height)  /2
-        z: 100
-    }
+    id: clipboardBtn
+    imageSource: "qrc:///images/copyToClipboard.png"
 
-    MouseArea {
-        id: buttonArea
-        anchors.fill: parent
+    Clipboard { id: clipboard }
 
-        onPressed: {
-            buttonImage.x = buttonImage.x + 2
-            buttonImage.y = buttonImage.y + 2
-        }
-
-        onReleased: {
-            buttonImage.x = buttonImage.x - 2
-            buttonImage.y = buttonImage.y - 2
-        }
-
-        onClicked: {
-            parent.clicked(mouse)
+    onClicked: {
+        if (textToCopy && textToCopy.length > 0) {
+            clipboard.setText(textToCopy)
         }
     }
 }

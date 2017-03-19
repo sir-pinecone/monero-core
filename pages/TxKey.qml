@@ -32,7 +32,6 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 
 import "../components"
-import moneroComponents.Clipboard 1.0
 
 Rectangle {
 
@@ -40,8 +39,6 @@ Rectangle {
     property alias addressText : addressLine.text
     property alias txIdText : txIdLine.text
     property alias txKeyText : txKeyLine.text
-
-    Clipboard { id: clipboard }
 
     function checkAddress(address, testnet) {
       return walletManager.addressValid(address, testnet)
@@ -129,13 +126,8 @@ Rectangle {
                 Layout.fillWidth: true
                 onTextChanged: cursorPosition = 0
 
-                IconButton {
-                    imageSource: "../images/copyToClipboard.png"
-                    onClicked: {
-                        if (addressLine.text.length > 0) {
-                            clipboard.setText(addressLine.text)
-                        }
-                    }
+                CopyToClipboard {
+                    textToCopy: addressLine.text
                 }
             }
         }
@@ -149,9 +141,7 @@ Rectangle {
                 width: mainLayout.labelWidth
             }
 
-
             LineEdit {
-
                 id: txIdLine
                 fontSize: mainLayout.lineEditFontSize
                 placeholderText: qsTr("Paste tx ID") + translationManager.emptyString
@@ -161,15 +151,9 @@ Rectangle {
 
                 onTextChanged: cursorPosition = 0
 
-                IconButton {
-                    imageSource: "../images/copyToClipboard.png"
-                    onClicked: {
-                        if (txIdLine.text.length > 0) {
-                            clipboard.setText(txIdLine.text)
-                        }
-                    }
+                CopyToClipboard {
+                    textToCopy: txIdLine.text
                 }
-
             }
         }
 
@@ -182,7 +166,6 @@ Rectangle {
                 width: mainLayout.labelWidth
             }
 
-
             LineEdit {
                 id: txKeyLine
                 fontSize: mainLayout.lineEditFontSize
@@ -192,13 +175,8 @@ Rectangle {
                 width: mainLayout.editWidth
                 Layout.fillWidth: true
 
-                IconButton {
-                    imageSource: "../images/copyToClipboard.png"
-                    onClicked: {
-                        if (TxKeyLine.text.length > 0) {
-                            clipboard.setText(TxKeyLine.text)
-                        }
-                    }
+                CopyToClipboard {
+                    textToCopy: txKeyLine.text
                 }
             }
         }

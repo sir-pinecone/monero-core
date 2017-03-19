@@ -33,7 +33,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
 import "../components"
-import moneroComponents.Clipboard 1.0
 import moneroComponents.Wallet 1.0
 import moneroComponents.WalletManager 1.0
 import moneroComponents.TransactionHistory 1.0
@@ -162,8 +161,6 @@ Rectangle {
         setTrackingLineText(text + "<br>" + list)
     }
 
-    Clipboard { id: clipboard }
-
 
     /* main layout */
     ColumnLayout {
@@ -200,13 +197,8 @@ Rectangle {
                 Layout.fillWidth: true
                 onTextChanged: cursorPosition = 0
 
-                IconButton {
-                    imageSource: "../images/copyToClipboard.png"
-                    onClicked: {
-                        if (addressLine.text.length > 0) {
-                            clipboard.setText(addressLine.text)
-                        }
-                    }
+                CopyToClipboard {
+                    textToCopy: addressLine.text
                 }
             }
         }
@@ -231,13 +223,8 @@ Rectangle {
                 width: mainLayout.editWidth
                 Layout.fillWidth: true
 
-                IconButton {
-                    imageSource: "../images/copyToClipboard.png"
-                    onClicked: {
-                        if (paymentIdLine.text.length > 0) {
-                            clipboard.setText(paymentIdLine.text)
-                        }
-                    }
+                CopyToClipboard {
+                    textToCopy: paymentIdLine.text
                 }
             }
 
@@ -274,9 +261,7 @@ Rectangle {
                 width: mainLayout.labelWidth
             }
 
-
             LineEdit {
-
                 id: integratedAddressLine
                 fontSize: mainLayout.lineEditFontSize
                 placeholderText: qsTr("ReadOnly wallet integrated address displayed here") + translationManager.emptyString
@@ -286,15 +271,9 @@ Rectangle {
 
                 onTextChanged: cursorPosition = 0
 
-                IconButton {
-                    imageSource: "../images/copyToClipboard.png"
-                    onClicked: {
-                        if (integratedAddressLine.text.length > 0) {
-                            clipboard.setText(integratedAddressLine.text)
-                        }
-                    }
+                CopyToClipboard {
+                    textToCopy: integratedAddressLine.text
                 }
-
             }
         }
 
@@ -306,7 +285,6 @@ Rectangle {
                 text: qsTr("Amount") + translationManager.emptyString
                 width: mainLayout.labelWidth
             }
-
 
             LineEdit {
                 id: amountLine
